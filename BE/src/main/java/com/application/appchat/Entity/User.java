@@ -68,8 +68,6 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Message> messages = new HashSet<>();
-
-
 }
 
 

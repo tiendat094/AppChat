@@ -16,5 +16,5 @@ public class SignalMessage {
     private String sdp;
     private String candidate;
 
-    // Getters and Setters
+
 }

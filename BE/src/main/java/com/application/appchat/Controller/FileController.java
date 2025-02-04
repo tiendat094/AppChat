@@ -28,10 +28,7 @@ public class FileController {
             String dropboxPath = "/uploads/"+ LocalDateTime.now().format(formatter) + fileName;
 
             try (InputStream inputStream = file.getInputStream()) {
-                // Sử dụng phương thức đã chỉnh sửa để nhận direct link
                 String directLink = dropboxService.uploadFileAndGetDirectLink(dropboxPath, inputStream, file.getSize());
-
-                // Trả về đối tượng JSON chứa URL direct link
                 Map<String, String> response = new HashMap<>();
                 response.put("url", directLink);
                 return ResponseEntity.ok(response);
