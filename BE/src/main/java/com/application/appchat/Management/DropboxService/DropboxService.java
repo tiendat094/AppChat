@@ -20,15 +20,6 @@ public class DropboxService {
         this.dropboxClient = new DbxClientV2(config, dropboxApiToken);
     }
 
-    /**
-     * Upload file to Dropbox and return the direct link.
-     *
-     * @param dropboxPath Path to save the file on Dropbox
-     * @param inputStream File InputStream
-     * @param fileSize    Size of the file in bytes
-     * @return Direct link of the uploaded file
-     * @throws Exception if upload or link creation fails
-     */
     public String uploadFileAndGetDirectLink(String dropboxPath, InputStream inputStream, long fileSize) throws Exception {
         try {
             // Upload the file to Dropbox
