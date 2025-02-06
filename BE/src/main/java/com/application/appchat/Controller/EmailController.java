@@ -16,7 +16,7 @@ public class EmailController {
     Random random = new Random();
     @Autowired
     private EmailServices emailServices;
-    private final static String subject = "Lấy Mã Otp Để Đặt Lại Mật Khẩu";
+    private final static String subject = "Lấy Mã Otp Đã Nhận Để Đặt Lại Mật Khẩu";
     private String body = Integer.toString(random.nextInt(9000)+1000);
     private Map<String, String> otpStorage = new HashMap<>();
     private void expireOtp(String email, long delayInMillis) {
