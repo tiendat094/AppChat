@@ -31,7 +31,6 @@ pipeline {
                 }
             }
         }
-
         stage('Deploy Frontend') {
             steps {
                 sshagent(['my-ssh-key']) {
