@@ -22,12 +22,11 @@ pipeline {
                 script {
                     sshagent(['my-ssh-key']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} <<EOF
-                        cd ${BE_PATH}
-                        mvn clean package
-                        cp ${BE_PATH}/target/*.jar ${BE_DEPLOY}/
-                        sudo systemctl restart AppChat.service
-                        EOF
+                        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "
+                        cd ${BE_PATH} &&
+                        mvn clean package &&
+                        cp ${BE_PATH}/target/*.jar ${BE_DEPLOY}/ &&
+                        sudo systemctl restart AppChat.service"
                         """
                     }
                 }
@@ -39,15 +38,24 @@ pipeline {
                 script {
                     sshagent(['my-ssh-key']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} <<EOF
-                        rm -rf ${FE_PATH}/App_Chat/dist
-                        cd ${FE_PATH}
-                        npm install
-                        npm run build
-                        sudo systemctl reload nginx
-                        EOF
+                        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "
+                        rm -rf ${FE_PATH}/App_Chat/dist &&
+                        cd ${FE_PATH} &&
+                        npm install &&
+                        npm run build &&
+                        sudo systemctl reload nginx"
                         """
                     }
+                }
+            }
+        }
+
+        stage('SSH Server') {
+            steps {
+                sshagent(['my-ssh-key']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "touch ~/test1.txt"
+                    """
                 }
             }
         }
