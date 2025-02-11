@@ -22,11 +22,11 @@ pipeline {
                 sshagent(['my-ssh-key']) {
                     sh """
                         ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} << EOF
-                        cd ${BE_PATH} &&
-                        mvn clean package &&
-                        cp ${BE_PATH}/target/*.jar ${BE_DEPLOY}/ &&
+                        cd ${BE_PATH}
+                        mvn clean package
+                        sudo cp ${BE_PATH}/target/*.jar ${BE_DEPLOY}/
                         sudo systemctl restart AppChat.service
-                         EOF
+                        EOF
                     """
                 }
             }
@@ -37,12 +37,13 @@ pipeline {
                 sshagent(['my-ssh-key']) {
                     sh """
                         ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} << EOF
-                        rm -rf ${FE_PATH}/App_Chat/dist &&
-                        cd ${FE_PATH} &&
-                        npm install &&
-                        npm run build &&
-                        sudo systemctl reload nginx"
-                         EOF
+                        sudo chmod -R 777 ${FE_PATH}/App_Chat/dist
+                        rm -rf ${FE_PATH}/App_Chat/dist
+                        cd ${FE_PATH}
+                        npm install
+                        npm run build
+                        sudo systemctl reload nginx
+                        EOF
                     """
                 }
             }
@@ -52,7 +53,7 @@ pipeline {
             steps {
                 sshagent(['my-ssh-key']) {
                     sh """
-                        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "touch ~/test1.txt"
+                        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "touch ~/test2.txt"
                     """
                 }
             }
