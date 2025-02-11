@@ -18,7 +18,6 @@ pipeline {
         }
         stage('Deploy Backend'){
             steps{
-               script{
                   sshagent(['my-ssh-key']){
                       sh '
                          ssh -o StrictHostKeyChecking=no -l dominhdue 192.168.183.129
@@ -28,13 +27,12 @@ pipeline {
                          sudo systemctl start AppChat.service
                          '
                   }
-               }
+
             }
         }
 
         stage('Deploy FE'){
             steps{
-                script{
                        sshagent(['my-ssh-key']){
                            sh '
                               ssh -o StrictHostKeyChecking=no -l dominhdue 192.168.183.129
@@ -44,7 +42,7 @@ pipeline {
                               sudo systemctl reload nginx
                               '
                        }
-                }
+
             }
         }
 
