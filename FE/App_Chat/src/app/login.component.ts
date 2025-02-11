@@ -8,7 +8,7 @@ import { AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginUserDto } from './service/model/user.dto';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 import { Call } from '@stream-io/video-client';
 import { CallService } from './service/api/callService';
 @Component({
@@ -61,7 +61,7 @@ import { CallService } from './service/api/callService';
           <button type="submit" class="btn">Login</button>
 
           <p class="signup-link">
-            Don't have an account?
+            Don't have an accounts?
             <a [routerLink]="'/register'">Register here</a>
           </p>
         </form>
@@ -199,7 +199,7 @@ export class LoginComponent {
   public username = '';
   public password = '';
  public errorMessage='';
- 
+
   constructor(private router: Router,private userService: UserService,private callService : CallService) {}
 
   login() {
@@ -213,7 +213,7 @@ export class LoginComponent {
       this.errorMessage = 'Username and password are required!';
       return;
     }
-  
+
     this.userService.login(input).subscribe(
       async (response) => {
         if (response) {
@@ -238,18 +238,18 @@ export class LoginComponent {
       }
     );
   }
-  
+
 
   private clearLoginFields() {
     this.username = '';
     this.password = '';
   }
-  
-  
+
+
    forgetPassword(){
     this.router.navigate(['/sendmail']);
-   }   
-    
+   }
+
   }
 
 
