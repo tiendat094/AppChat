@@ -22,7 +22,7 @@ pipeline {
                 sshagent(['my-ssh-key']) {
                     sh """
                         ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "
-                        rm -rf ${FE_PATH}/App_Chat/dist &&
+                        sudo rm -rf ${FE_PATH}/App_Chat/dist &&
                         cd ${FE_PATH} &&
                         npm install &&
                         npm run build &&
@@ -38,7 +38,7 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "
                         cd ${BE_PATH} &&
                         mvn clean package &&
-                        cp ${BE_PATH}/target/*.jar ${BE_DEPLOY}/ &&
+                        sudo cp ${BE_PATH}/target/*.jar ${BE_DEPLOY}/ &&
                         sudo systemctl restart AppChat.service"
                     """
                 }
