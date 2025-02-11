@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('Deploy FrontEnd'){
+        stage('Deploy FE'){
             steps{
                 script{
                        sshagent(['my-ssh-key']){
