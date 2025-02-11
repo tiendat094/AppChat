@@ -16,22 +16,8 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/tiendat094/AppChat.git'
             }
         }
-/*
-        stage('Deploy Backend') {
-            steps {
-                sshagent(['my-ssh-key']) {
-                    sh """
-                        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "
-                        cd ${BE_PATH} &&
-                        mvn clean package &&
-                        cp ${BE_PATH}/target *//*.jar ${BE_DEPLOY}/ &&
-                        sudo systemctl restart AppChat.service"
-                    """
-                }
-            }
-        }
 
-        stage('Deploy Frontend') {
+   stage('Deploy Frontend') {
             steps {
                 sshagent(['my-ssh-key']) {
                     sh """
@@ -44,7 +30,22 @@ pipeline {
                     """
                 }
             }
-        } */
+        }
+        stage('Deploy Backend') {
+            steps {
+                sshagent(['my-ssh-key']) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "
+                        cd ${BE_PATH} &&
+                        mvn clean package &&
+                        cp ${BE_PATH}/target/*.jar ${BE_DEPLOY}/ &&
+                        sudo systemctl restart AppChat.service"
+                    """
+                }
+            }
+        }
+
+
 
         stage('SSH server') {
             steps {
