@@ -3,11 +3,11 @@ name: Deploy Frontend to GitHub Pages
 on:
   push:
     branches:
-      - main  # Chạy khi có code mới trên branch main
+      - main
   pull_request:
     branches:
       - main
-  workflow_dispatch: # Cho phép chạy thủ công từ tab Actions
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -29,7 +29,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20  # Chọn phiên bản Node.js phù hợp
+          node-version: 20
 
       - name: Install Dependencies
         run: |
@@ -47,8 +47,14 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: FE/App_Chat/dist/app-chat  # Chỉ upload thư mục build của Angular
+          path: FE/App_Chat/dist/app-chat  
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Show Deployment URL
+        run: echo "🚀 Deployed successfully! Your site is live at: https://tiendat094.github.io/AppChat/"
+
+
+
