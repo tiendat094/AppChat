@@ -1,14 +1,15 @@
 name: Deploy App_Chat Be
 on:
+  pull_request:
+     branches:
+      - main
   push:
     branches:
       - main
     paths:
     - 'BE/**'
     - 'github/workflows/deploy_be.yml'
-  pull_request:
-     branches:
-      - main
+
 
 jobs:
   build:
