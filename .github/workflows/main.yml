@@ -1,12 +1,22 @@
-name: Deploy Frontend
+name: Deploy Frontend to GitHub Pages
 
 on:
   push:
     branches:
       - main  # Chạy khi có code mới trên branch main
   pull_request:
-     branches:
-        -main
+    branches:
+      - main
+  workflow_dispatch: # Cho phép chạy thủ công từ tab Actions
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
@@ -19,22 +29,26 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20  # Phiên bản Node.js
+          node-version: 20  # Chọn phiên bản Node.js phù hợp
 
       - name: Install Dependencies
         run: |
-          cd FE
-          cd App_Chat
+          cd FE/App_Chat
           npm install 
 
       - name: Build Angular App
         run: |
-          cd FE
-          cd App_Chat
-          npm run ng build 
+          cd FE/App_Chat
+          npm run ng build -- --configuration production 
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: FE/App_Chat/dist/app-chat  # Chỉ upload thư mục build của Angular
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: FE/App_Chat/dist/app-chat
+        id: deployment
+        uses: actions/deploy-pages@v4
