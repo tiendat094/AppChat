@@ -6,11 +6,7 @@ on:
   push:
     branches:
       - main
-    paths:
-    - 'BE/**'
-    - 'github/workflows/deploy_be.yml'
-
-
+    
 jobs:
   build:
     runs-on: self-hosted
