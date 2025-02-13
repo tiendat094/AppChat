@@ -1,0 +1,27 @@
+name: Deploy App_Chat Be
+on:
+  push:
+    branches:
+      - main
+    paths:
+    - 'BE/**'
+    - 'github/workflows/deploy_be.yml'
+
+jobs:
+  build:
+    runs-on: self-hosted
+    name: Build Java
+    environment: main
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build Java
+      run: |
+       sudo mvn clean package
+
+ 
+        
+    
+    
+    
