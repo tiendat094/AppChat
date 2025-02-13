@@ -1,0 +1,40 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main  # Chạy khi có code mới trên branch main
+  pull_request:
+     branches:
+        -main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20  # Phiên bản Node.js
+
+      - name: Install Dependencies
+        run: |
+          cd Fe
+          cd App_Chat
+          npm install 
+
+      - name: Build Angular App
+        run: |
+          cd Fe
+          cd App_Chat
+          npm run ng build 
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: Fe/App_Chat/dist/app-chat
