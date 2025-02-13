@@ -6,6 +6,9 @@ on:
     paths:
     - 'BE/**'
     - 'github/workflows/deploy_be.yml'
+  pull_request:
+     branches:
+      - main
 
 jobs:
   build:
