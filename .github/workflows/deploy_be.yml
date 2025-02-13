@@ -18,7 +18,8 @@ jobs:
 
     - name: Build Java
       run: |
-       sudo mvn clean package
+       cd /actions-runner/_work/AppChat/AppChat/BE
+       
 
  
         
