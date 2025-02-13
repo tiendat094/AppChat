@@ -23,13 +23,13 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd Fe
+          cd FE
           cd App_Chat
           npm install 
 
       - name: Build Angular App
         run: |
-          cd Fe
+          cd FE
           cd App_Chat
           npm run ng build 
 
